@@ -191,8 +191,12 @@
     </script>
 
     <!-- Scripts -->
-    <script src="https://unpkg.com/lucide@0.344.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="js/script.js?v=<?php echo time(); ?>"></script>
+    <script>
+        // Ensure lucide icons render even if createIcons was called before script loaded
+        if (window.lucide) { lucide.createIcons(); }
+    </script>
 </body>
 </html>
