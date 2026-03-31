@@ -1,11 +1,11 @@
 <?php include 'header.php'; ?>
 
     <!-- Hero Area -->
-    <main class="relative w-full h-screen min-h-[600px] flex flex-col px-6 md:px-12 pt-28 pb-8 z-10 overflow-hidden mt-0">
+    <main class="relative w-full h-[72vh] sm:h-screen min-h-[480px] sm:min-h-[600px] flex flex-col px-6 md:px-12 pt-24 md:pt-28 pb-8 z-10 overflow-hidden mt-0">
         <div class="absolute inset-0 bg-black w-full h-full -z-20"></div>
         <img
             src="images/hero.png"
-            class="absolute inset-0 w-full h-full object-cover -z-10 opacity-70"
+            class="absolute inset-0 w-full h-full object-cover object-[30%_center] sm:object-center -z-10 opacity-70"
             alt="AMOHA Logistics hero background"
         >
 
@@ -18,7 +18,7 @@
                         <span class="inline">& Logistics</span>
                     </h1>
 
-                    <div class="mt-6 flex flex-col sm:flex-row gap-3 max-w-lg">
+                    <div class="mt-6 flex flex-col sm:flex-row items-start gap-3 max-w-lg">
                         <a href="#services" class="bg-brand-red text-white px-6 py-3 text-xs md:text-sm font-bold uppercase tracking-wide hover:opacity-90 transition-opacity shadow-lg text-center inline-block">
                             Explore Services
                         </a>
