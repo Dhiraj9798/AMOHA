@@ -1,0 +1,408 @@
+/* Custom Styles for AMOHA Logistics */
+/* Tailwind is loaded via CDN in header.php */
+
+html {
+    scroll-behavior: smooth;
+}
+
+@layer utilities {
+    .clip-button {
+        clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    }
+}
+
+body {
+    text-rendering: optimizeLegibility;
+}
+
+.section-image {
+    transition: transform 0.5s ease;
+}
+
+.section-image:hover {
+    transform: scale(1.05);
+}
+
+.service-card {
+    background: #ffffff;
+    border: 1px solid #ebedf0;
+    border-radius: 18px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 38px rgba(17, 24, 39, 0.12);
+}
+
+.service-card:hover .icon-pop {
+    animation: iconBounce 0.7s ease;
+}
+
+.service-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: #f4f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Premium Service Card Zig-Zag Layout */
+.service-card-premium {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 28px rgba(17, 24, 39, 0.08);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.service-card-premium:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(17, 24, 39, 0.14);
+    border-color: #9b0014;
+}
+
+.service-icon-premium {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(155, 0, 20, 0.12) 0%, rgba(155, 0, 20, 0.06) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.service-card-premium:hover .service-icon-premium {
+    transform: scale(1.12);
+}
+
+.service-card-premium h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.service-card-premium p {
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .service-card-premium {
+        width: 100% !important;
+        padding: 1.5rem;
+    }
+
+    .flex.justify-center > .service-card-premium,
+    .flex.justify-start > .service-card-premium,
+    .flex.justify-end > .service-card-premium {
+        width: 100% !important;
+    }
+}
+
+/* Compact Collapsible Service Cards */
+.service-card-compact {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+    transition: all 0.3s ease;
+}
+
+.service-card-compact:hover {
+    box-shadow: 0 12px 28px rgba(17, 24, 39, 0.1);
+    border-color: #9b0014;
+}
+
+.service-icon-compact {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(155, 0, 20, 0.12) 0%, rgba(155, 0, 20, 0.06) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.service-toggle-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fee0e3;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.service-toggle-btn:hover {
+    background: #9b0014;
+    transform: scale(1.1);
+}
+
+.service-toggle-btn:hover span {
+    color: #ffffff;
+}
+
+/* Service Accordion */
+.service-accordion {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: visible;
+    box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.service-accordion:hover {
+    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.1);
+}
+
+.service-accordion-header {
+    background: #ffffff;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.service-accordion-header:hover {
+    background-color: #f9fafb;
+}
+
+.service-accordion-header:focus {
+    outline: 2px solid #9b0014;
+    outline-offset: -2px;
+}
+
+.service-accordion-content {
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-top: 1px solid #e5e7eb;
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+.service-accordion-content.hidden {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .service-card-compact {
+        padding: 0.875rem;
+    }
+
+    .service-icon-compact {
+        width: 36px;
+        height: 36px;
+    }
+
+    .service-toggle-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+}
+
+.benefit-card {
+    background: #ffffff;
+    border: 1px solid #ebedf0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 32px rgba(17, 24, 39, 0.07);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(17, 24, 39, 0.12);
+}
+
+.primary-gradient-btn {
+    background: linear-gradient(120deg, #9b0014 0%, #48000a 100%);
+    color: #ffffff;
+    padding: 0.85rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 10px 24px rgba(155, 0, 20, 0.28);
+}
+
+.primary-gradient-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(155, 0, 20, 0.35);
+}
+
+.why-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1rem;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+/* Glass Box Style for Highlight */
+.glass-box {
+    background: rgba(155, 0, 20, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(155, 0, 20, 0.15);
+    border-radius: 16px;
+    animation: glassBoxAppear 0.8s ease-out forwards;
+}
+
+@keyframes glassBoxAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Benefit Bullet Style */
+.benefit-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    opacity: 0;
+}
+
+.benefit-bullet .bullet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9b0014;
+    font-size: 1.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+    font-weight: bold;
+}
+
+.benefit-bullet p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+    .benefit-bullet {
+        gap: 0.5rem;
+    }
+
+    .benefit-bullet .bullet {
+        font-size: 1rem;
+    }
+
+    .benefit-bullet p {
+        font-size: 0.9rem;
+    }
+}
+
+[data-animate] {
+    will-change: transform, opacity;
+}
+
+@keyframes iconBounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.18); }
+    60% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Review Glassmorphism Cards */
+.review-glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.review-glass-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.12);
+}
+
+#reviews-container {
+    scroll-behavior: smooth;
+}
+
+.scroll-indicator {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.scroll-indicator.active {
+    width: 24px;
+    background-color: #9b0014;
+}
+
+.scroll-indicator:hover {
+    background-color: #9b0014;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .review-glass-card {
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 1rem !important;
+    }
+
+    #reviews-container {
+        gap: 1rem;
+    }
+
+    .review-card {
+        width: 280px !important;
+    }
+}
+
+/* Hero Breadcrumb & Description Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-breadcrumb {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-description {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
