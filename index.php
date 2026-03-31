@@ -3,14 +3,11 @@
     <!-- Hero Area -->
     <main class="relative w-full h-screen min-h-[600px] flex flex-col px-6 md:px-12 pt-28 pb-8 z-10 overflow-hidden mt-0">
         <div class="absolute inset-0 bg-black w-full h-full -z-20"></div>
-        <video
-            autoplay
-            loop
-            muted
-            playsinline
+        <img
+            src="images/hero.png"
             class="absolute inset-0 w-full h-full object-cover -z-10 opacity-70"
-            src="images/bg-video.mp4"
-        ></video>
+            alt="AMOHA Logistics hero background"
+        >
 
         <div class="max-w-7xl mx-auto w-full flex-1 flex flex-col relative z-10 basis-full">
             <div class="flex-1 flex flex-col justify-start pt-4">
