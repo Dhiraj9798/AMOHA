@@ -353,7 +353,7 @@
     <!-- Why Choose AMOHA Logistics -->
     <section id="whyus" class="w-full bg-gray-50 border-t border-gray-100 relative py-24 px-6 md:px-12 overflow-hidden">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-            <div class="relative w-full h-[380px] lg:h-[560px]" data-animate="fade-left">
+            <div class="relative w-full h-[220px] md:h-[380px] lg:h-[560px]" data-animate="fade-left">
                 <img src="images/truct.jpeg" class="section-image absolute inset-0 w-full h-full object-cover rounded-3xl shadow-xl" alt="AMOHA transport operations">
             </div>
 
@@ -418,9 +418,9 @@
 
             <!-- Reviews Carousel -->
             <div class="relative group">
-                <div id="reviews-container" class="flex overflow-x-hidden gap-6 pb-4">
+                <div id="reviews-container" class="flex overflow-x-auto gap-4 pb-4" style="scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;">
                     <!-- Review 1 -->
-                    <div class="flex-shrink-0 w-80 review-card" data-animate="fade-up" data-delay="0.1">
+                    <div class="flex-shrink-0 w-[88vw] sm:w-80 review-card" style="scroll-snap-align:start;" data-animate="fade-up" data-delay="0.1">
                         <div class="review-glass-card h-full p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 hover:-translate-y-1.5">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-red to-red-700 flex items-center justify-center flex-shrink-0">
@@ -446,7 +446,7 @@
                     </div>
 
                     <!-- Review 2 -->
-                    <div class="flex-shrink-0 w-80 review-card" data-animate="fade-up" data-delay="0.2">
+                    <div class="flex-shrink-0 w-[88vw] sm:w-80 review-card" style="scroll-snap-align:start;" data-animate="fade-up" data-delay="0.2">
                         <div class="review-glass-card h-full p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 hover:-translate-y-1.5">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center flex-shrink-0">
@@ -472,7 +472,7 @@
                     </div>
 
                     <!-- Review 3 -->
-                    <div class="flex-shrink-0 w-80 review-card" data-animate="fade-up" data-delay="0.3">
+                    <div class="flex-shrink-0 w-[88vw] sm:w-80 review-card" style="scroll-snap-align:start;" data-animate="fade-up" data-delay="0.3">
                         <div class="review-glass-card h-full p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 hover:-translate-y-1.5">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center flex-shrink-0">
@@ -498,7 +498,7 @@
                     </div>
 
                     <!-- Review 4 -->
-                    <div class="flex-shrink-0 w-80 review-card" data-animate="fade-up" data-delay="0.4">
+                    <div class="flex-shrink-0 w-[88vw] sm:w-80 review-card" style="scroll-snap-align:start;" data-animate="fade-up" data-delay="0.4">
                         <div class="review-glass-card h-full p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 hover:-translate-y-1.5">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center flex-shrink-0">
@@ -524,7 +524,7 @@
                     </div>
 
                     <!-- Review 5 -->
-                    <div class="flex-shrink-0 w-80 review-card" data-animate="fade-up" data-delay="0.5">
+                    <div class="flex-shrink-0 w-[88vw] sm:w-80 review-card" style="scroll-snap-align:start;" data-animate="fade-up" data-delay="0.5">
                         <div class="review-glass-card h-full p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 hover:-translate-y-1.5">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center flex-shrink-0">
@@ -550,7 +550,7 @@
                     </div>
 
                     <!-- Review 6 -->
-                    <div class="flex-shrink-0 w-80 review-card" data-animate="fade-up" data-delay="0.6">
+                    <div class="flex-shrink-0 w-[88vw] sm:w-80 review-card" style="scroll-snap-align:start;" data-animate="fade-up" data-delay="0.6">
                         <div class="review-glass-card h-full p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 hover:-translate-y-1.5">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-pink-700 flex items-center justify-center flex-shrink-0">
@@ -576,7 +576,7 @@
                     </div>
 
                     <!-- Review 7 -->
-                    <div class="flex-shrink-0 w-80 review-card" data-animate="fade-up" data-delay="0.7">
+                    <div class="flex-shrink-0 w-[88vw] sm:w-80 review-card" style="scroll-snap-align:start;" data-animate="fade-up" data-delay="0.7">
                         <div class="review-glass-card h-full p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 hover:-translate-y-1.5">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center flex-shrink-0">
@@ -602,7 +602,7 @@
                     </div>
 
                     <!-- Review 8 -->
-                    <div class="flex-shrink-0 w-80 review-card" data-animate="fade-up" data-delay="0.8">
+                    <div class="flex-shrink-0 w-[88vw] sm:w-80 review-card" style="scroll-snap-align:start;" data-animate="fade-up" data-delay="0.8">
                         <div class="review-glass-card h-full p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 hover:-translate-y-1.5">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center flex-shrink-0">

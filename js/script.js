@@ -151,69 +151,88 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Reviews Carousel Auto-Scroll
+    // Reviews Carousel
     const reviewsContainer = document.getElementById("reviews-container");
     if (reviewsContainer) {
         const reviewCards = document.querySelectorAll(".review-card");
         const scrollIndicators = document.querySelectorAll(".scroll-indicator");
-        const cardWidth = 336; // 80 + 24 (gap 1.5rem = 24px) = 336px
         let currentIndex = 0;
         let autoScrollInterval;
 
-        const updateCarousel = (index) => {
-            currentIndex = index % reviewCards.length;
-            const scrollAmount = currentIndex * cardWidth;
-            
-            reviewsContainer.scrollTo({
-                left: scrollAmount,
-                behavior: "smooth"
-            });
+        // Hide scrollbar on webkit (Chrome/Safari/Mobile)
+        reviewsContainer.style.cssText += ";scrollbar-width:none;-ms-overflow-style:none;";
+        const styleTag = document.createElement("style");
+        styleTag.textContent = "#reviews-container::-webkit-scrollbar{display:none;}";
+        document.head.appendChild(styleTag);
 
-            // Update indicators
+        // Dynamically get card width from actual rendered card (works for mobile 88vw and desktop 320px)
+        const getCardWidth = () => {
+            if (reviewCards.length === 0) return 320;
+            const firstCard = reviewCards[0];
+            const style = window.getComputedStyle(reviewsContainer);
+            const gap = parseFloat(style.gap) || 16;
+            return firstCard.offsetWidth + gap;
+        };
+
+        const updateIndicators = (index) => {
             scrollIndicators.forEach((indicator, i) => {
-                if (i === currentIndex) {
+                if (i === index) {
                     indicator.classList.add("active");
+                    indicator.style.background = "var(--brand-red, #9b0014)";
+                    indicator.style.width = "20px";
                 } else {
                     indicator.classList.remove("active");
+                    indicator.style.background = "#d1d5db";
+                    indicator.style.width = "8px";
                 }
             });
         };
 
-        const autoScroll = () => {
-            updateCarousel(currentIndex + 1);
+        const updateCarousel = (index) => {
+            currentIndex = ((index % reviewCards.length) + reviewCards.length) % reviewCards.length;
+            const cardWidth = getCardWidth();
+            reviewsContainer.scrollTo({ left: currentIndex * cardWidth, behavior: "smooth" });
+            updateIndicators(currentIndex);
         };
+
+        const autoScroll = () => updateCarousel(currentIndex + 1);
 
         const startAutoScroll = () => {
-            autoScrollInterval = setInterval(autoScroll, 3500); // 3.5 seconds
+            autoScrollInterval = setInterval(autoScroll, 3500);
         };
 
-        const pauseAutoScroll = () => {
-            clearInterval(autoScrollInterval);
-        };
+        const pauseAutoScroll = () => clearInterval(autoScrollInterval);
 
-        // Initialize carousel
+        // Init
         updateCarousel(0);
         startAutoScroll();
 
-        // Pause on hover
+        // Desktop hover pause/resume
         reviewsContainer.addEventListener("mouseenter", pauseAutoScroll);
         reviewsContainer.addEventListener("mouseleave", startAutoScroll);
 
-        // Pause on indicator click
-        scrollIndicators.forEach((indicator, index) => {
+        // Indicator dot click
+        scrollIndicators.forEach((indicator, i) => {
             indicator.addEventListener("click", () => {
                 pauseAutoScroll();
-                updateCarousel(index);
+                updateCarousel(i);
                 startAutoScroll();
             });
         });
 
-        // Resume on scroll end
+        // Sync indicator with manual scroll (touch swipe or mouse drag)
         let scrollTimeout;
         reviewsContainer.addEventListener("scroll", () => {
             pauseAutoScroll();
             clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(startAutoScroll, 2000); // Resume after 2 seconds of no scroll
+            scrollTimeout = setTimeout(() => {
+                // Snap to nearest card and update indicator
+                const cardWidth = getCardWidth();
+                const newIndex = Math.round(reviewsContainer.scrollLeft / cardWidth);
+                currentIndex = Math.min(newIndex, reviewCards.length - 1);
+                updateIndicators(currentIndex);
+                startAutoScroll();
+            }, 150);
         });
     }
 
