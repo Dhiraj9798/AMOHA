@@ -17,13 +17,15 @@ COPY . .
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
 
-# Configure Apache to serve from project root
-RUN echo '<Directory /var/www/html>' > /etc/apache2/sites-available/000-default.conf && \
-    echo '  Options Indexes FollowSymLinks' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '  AllowOverride All' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '  Require all granted' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '</Directory>' >> /etc/apache2/sites-available/000-default.conf && \
-    echo 'DocumentRoot /var/www/html' >> /etc/apache2/sites-available/000-default.conf
+# Configure Apache VirtualHost handling port 8080
+RUN echo '<VirtualHost *:8080>' > /etc/apache2/sites-available/000-default.conf && \
+    echo '  DocumentRoot /var/www/html' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  <Directory /var/www/html>' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '    Options Indexes FollowSymLinks' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '    AllowOverride All' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '    Require all granted' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  </Directory>' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '</VirtualHost>' >> /etc/apache2/sites-available/000-default.conf
 
 # Expose port 8080 (Render required)
 EXPOSE 8080
