@@ -21,53 +21,34 @@
         <div class="max-w-6xl mx-auto">
             <!-- Gallery Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Image 1 -->
-                <div class="group relative h-64 md:h-72 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gray-200">
-                    <img src="images/truct1.jpg" alt="AMOHA Fleet" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-lg invisible group-hover:visible">Fleet Operations</span>
-                    </div>
-                </div>
+                <?php
+                // Step 1: Database se connection lete hain
+                require_once 'admin/includes/db_connect.php';
 
-                <!-- Image 2 -->
-                <div class="group relative h-64 md:h-72 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gray-200">
-                    <img src="images/truct1.jpg" alt="Loading Operations" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-lg invisible group-hover:visible">Loading Operations</span>
-                    </div>
-                </div>
+                // Step 2: Database ki 'gallery' table se saari images nikalte hain (nayi photo sabse pehle aayegi)
+                $query = "SELECT * FROM gallery ORDER BY id DESC";
+                $result = mysqli_query($conn, $query);
 
-                <!-- Image 3 -->
+                // Step 3: Agar table me images hain toh HTML box generate karenge
+                if(mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_assoc($result)) {
+                        // Image ka rasta
+                        $img_path = "uploads/gallery/" . $row['image_name'];
+                ?>
+                <!-- Dynamic Image Block -->
                 <div class="group relative h-64 md:h-72 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gray-200">
-                    <img src="images/truct1.jpg" alt="Truck Fleet" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <img src="<?php echo $img_path; ?>" alt="AMOHA Fleet" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                     <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-lg invisible group-hover:visible">Truck Fleet</span>
+                        <span class="text-white font-bold text-lg invisible group-hover:visible">Gallery Image</span>
                     </div>
                 </div>
-
-                <!-- Image 4 -->
-                <div class="group relative h-64 md:h-72 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gray-200">
-                    <img src="images/truct1.jpg" alt="Logistics Support" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-lg invisible group-hover:visible">Logistics Support</span>
-                    </div>
-                </div>
-
-                <!-- Image 5 -->
-                <div class="group relative h-64 md:h-72 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gray-200">
-                    <img src="images/truct1.jpg" alt="Delivery Services" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-lg invisible group-hover:visible">Delivery Services</span>
-                    </div>
-                </div>
-
-                <!-- Image 6 -->
-                <div class="group relative h-64 md:h-72 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gray-200">
-                    <img src="images/truct1.jpg" alt="Operations Team" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-lg invisible group-hover:visible">Operations Team</span>
-                    </div>
-                </div>
+                <?php
+                    }
+                } else {
+                    // Agar abhi tak koi photo na daali ho panel se
+                    echo "<p class='col-span-3 text-center text-gray-500 text-xl py-10'>Abhi tak koi photo upload nahi ki gai hai.</p>";
+                }
+                ?>
             </div>
         </div>
     </section>

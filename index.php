@@ -1,74 +1,95 @@
 <?php include 'header.php'; ?>
 
+    <div id="index-scroll-progress" aria-hidden="true"><span></span></div>
+
     <!-- Hero Area -->
-    <main class="relative w-full h-[72vh] sm:h-screen min-h-[480px] sm:min-h-[600px] flex flex-col px-6 md:px-12 pt-24 md:pt-28 pb-8 z-10 overflow-hidden mt-0">
-        <div class="absolute inset-0 bg-black w-full h-full -z-20"></div>
-        <img
-            src="images/hero.png"
-            class="absolute inset-0 w-full h-full object-cover object-[30%_center] sm:object-center -z-10 opacity-70"
-            alt="AMOHA Logistics hero background"
-        >
+    <main class="hero-stage relative w-full h-[75vh] sm:h-screen min-h-[500px] sm:min-h-[600px] flex flex-col px-6 md:px-12 pt-20 sm:pt-24 md:pt-28 pb-8 z-10 overflow-visible sm:overflow-hidden mt-0">
+        <div class="hero-ambient hero-ambient-1" data-float="8" aria-hidden="true"></div>
+        <div class="hero-ambient hero-ambient-2" data-float="14" aria-hidden="true"></div>
+        <div class="absolute inset-0 bg-black/10 w-full h-full -z-30"></div>
+
+        <!-- Hero Slider Background -->
+        <div id="hero-slider" class="absolute inset-0 w-full h-full -z-20" aria-label="Hero image slider">
+            <img
+                src="images/hero.jpeg"
+                class="hero-slide absolute inset-0 w-full h-full object-cover object-[78%_center] sm:object-center opacity-100 transition-opacity duration-1000 ease-in-out"
+                alt="AMOHA Logistics transport operations"
+                loading="eager"
+            >
+            <img
+                src="images/hero2.jpeg"
+                class="hero-slide absolute inset-0 w-full h-full object-cover object-center opacity-0 transition-opacity duration-1000 ease-in-out"
+                alt="AMOHA Logistics fleet movement"
+                loading="lazy"
+            >
+            <img
+                src="images/hero3.jpeg"
+                class="hero-slide absolute inset-0 w-full h-full object-cover object-center opacity-0 transition-opacity duration-1000 ease-in-out"
+                alt="AMOHA Logistics loading and delivery"
+                loading="lazy"
+            >
+        </div>
+
+        <div class="absolute inset-0 bg-black/20 -z-10"></div>
 
         <div class="max-w-7xl mx-auto w-full flex-1 flex flex-col relative z-10 basis-full">
             <div class="flex-1 flex flex-col justify-start pt-4">
-                <div class="text-white drop-shadow-2xl" data-animate="fade-up">
-                    <h1 class="text-3xl md:text-5xl lg:text-[64px] font-bold uppercase tracking-tighter leading-[1.1] text-left flex flex-wrap items-center gap-2 md:gap-3">
-                        <span class="inline">Reliable</span>
-                        <span class="whitespace-nowrap inline-block">Transport</span>
-                        <span class="inline">& Logistics</span>
+                <div class="hero-copy text-white drop-shadow-2xl h-full flex flex-col flex-1">
+                    <h1 class="hero-title-glass text-2xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tighter leading-[1.1] text-left inline-flex flex-wrap items-center gap-2 md:gap-3">
+                        <span class="hero-word inline">Reliable</span>
+                        <span class="hero-word whitespace-nowrap inline-block">Transport</span>
+                        <span class="hero-word inline">& Logistics</span>
                     </h1>
 
-                    <div class="mt-6 flex flex-col sm:flex-row items-start gap-3 max-w-lg">
-                        <a href="#services" class="bg-brand-red text-white px-6 py-3 text-xs md:text-sm font-bold uppercase tracking-wide hover:opacity-90 transition-opacity shadow-lg text-center inline-block">
+                    <div class="hero-action-buttons mt-auto sm:mt-6 flex flex-row sm:flex-row items-center gap-2 sm:gap-3 w-full max-w-[290px] sm:max-w-lg">
+                        <a href="#services" class="hero-cta-btn bg-brand-red text-white px-3 sm:px-6 py-2 sm:py-3 text-[10px] sm:text-sm font-bold uppercase tracking-wide hover:opacity-90 transition-opacity shadow-lg text-center inline-block flex-1 sm:flex-none">
                             Explore Services
                         </a>
-                        <a href="#contact" class="bg-white text-brand-black px-6 py-3 text-xs md:text-sm font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors shadow-lg text-center inline-block">
+                        <a href="#contact" class="hero-cta-btn hero-cta-btn-light bg-white text-brand-black px-3 sm:px-6 py-2 sm:py-3 text-[10px] sm:text-sm font-bold uppercase tracking-wide hover:bg-gray-100 transition-colors shadow-lg text-center inline-block flex-1 sm:flex-none">
                             Partner With Us
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="w-full sm:w-max mx-auto md:ml-auto md:mr-0 mt-8 shrink-0" data-animate="fade-up" data-delay="0.2">
-                <div class="bg-white/95 rounded-lg shadow-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-5 border border-white/50 backdrop-blur-sm relative left-0">
-                    <div class="text-center sm:text-left">
-                        <h3 class="text-sm md:text-base font-bold tracking-tight mb-0.5 text-brand-black">Trip-Based Vehicle Earnings</h3>
-                        <p class="text-xs text-gray-600 font-medium">Earn up to ₹95k/month with AMOHA.</p>
-                    </div>
-                    <a href="transport-partner-program.php" class="bg-brand-black text-white px-5 py-2 font-bold uppercase tracking-wider text-xs hover:bg-black transition-colors shadow-md rounded flex justify-center items-center gap-1.5 whitespace-nowrap w-full sm:w-auto">
-                        <i data-lucide="truck" class="w-4 h-4" stroke-width="2.5"></i> Details
-                    </a>
-                </div>
-            </div>
+        </div>
+
+        <!-- Hero Slider Dots -->
+        <div class="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+            <button type="button" class="hero-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white/90" data-hero-slide="0" aria-label="Show hero slide 1"></button>
+            <button type="button" class="hero-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white/40 hover:bg-white/70 transition-colors" data-hero-slide="1" aria-label="Show hero slide 2"></button>
+            <button type="button" class="hero-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-white/40 hover:bg-white/70 transition-colors" data-hero-slide="2" aria-label="Show hero slide 3"></button>
         </div>
     </main>
 
     <!-- About Section -->
-    <section id="about" class="w-full bg-white relative py-20 px-6 md:px-12 overflow-hidden">
+    <section id="about" class="section-stage section-stage-light w-full bg-white relative py-20 px-6 md:px-12 overflow-hidden">
+        <div class="section-orb orb-red" data-float="6" aria-hidden="true"></div>
+        <div class="section-orb orb-blue" data-float="10" aria-hidden="true"></div>
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div class="relative w-full" data-animate="fade-left">
+            <div class="relative w-full max-w-[360px] md:max-w-[420px] lg:max-w-[470px] mx-auto about-photo-shell" data-animate="blur-up">
+                <div id="about-photo-three-bg" class="about-photo-three-bg absolute -inset-5 sm:-inset-6 rounded-[1.75rem] -z-20 pointer-events-none" aria-hidden="true"></div>
                 <div class="absolute top-6 -left-6 w-full h-full border-2 border-gray-100 rounded-2xl -z-10"></div>
-                <img src="images/drivers.jpeg" alt="AMOHA truck and cement transport" class="section-image relative z-10 rounded-2xl shadow-2xl object-cover w-full h-[380px] lg:h-[500px]">
+                <img src="images/drivers.jpeg" alt="AMOHA truck and cement transport" class="section-image relative z-10 rounded-2xl shadow-2xl object-cover w-full h-[250px] sm:h-[300px] lg:h-[370px]">
             </div>
             <div data-animate="fade-right">
-                <div class="inline-block bg-gray-100 px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-black mb-4">About AMOHA Logistics</div>
+                <div class="inline-block bg-red-50 border border-brand-red px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-red mb-4">About AMOHA Logistics</div>
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mb-8 text-brand-black leading-tight">About AMOHA Logistics</h2>
 
                 <p class="text-gray-600 mb-6 text-base leading-relaxed font-medium">
-                    AMOHA Logistics was established in 2018 in Dhanbad, Jharkhand, and has grown into a reliable transportation and logistics service provider. The company focuses on efficient cement transportation and material supply operations across its working regions.
+                    AMOHA Logistics, established in 2018 in Dhanbad, Jharkhand, is a trusted partner for cement transportation, fleet coordination, and organized delivery operations across active service regions.
                 </p>
-                <p class="text-gray-600 mb-6 text-base leading-relaxed font-medium">
-                    AMOHA Logistics has successfully worked with leading companies such as <strong>JSPL, UltraTech Cement, Rungta, and Dalmia Cement</strong>, supporting their transportation and supply chain requirements. Through strong coordination with truck owners, drivers, and vendors, the company ensures safe, timely, and organized delivery of materials.
-                </p>
-                <p class="text-gray-600 text-base leading-relaxed font-medium">
-                    With a commitment to professionalism, transparency, and operational efficiency, AMOHA Logistics continues to strengthen its logistics network while building long-term partnerships in the transportation industry.
-                </p>
+                <a href="about-us.php" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-red text-white text-sm font-bold uppercase tracking-wide rounded-md hover:bg-brand-black transition-colors">
+                    Read More
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Services & Operations -->
-    <section id="services" class="w-full bg-gray-50 relative py-14 px-6 md:px-12 border-y border-gray-100">
+    <section id="services" class="section-stage section-stage-soft w-full bg-gray-50 relative py-14 px-6 md:px-12 border-y border-gray-100">
+        <div class="section-orb orb-amber" data-float="7" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto">
             <!-- Section Header -->
             <div class="text-center mb-10" data-animate="fade-up">
@@ -78,6 +99,7 @@
                 <p class="text-sm md:text-base font-semibold text-gray-700">
                     Reliable logistics services and organized transportation operations
                 </p>
+                <div class="service-progress-rail mt-4" data-animate="wipe-in"><span class="service-progress-fill"></span></div>
             </div>
 
             <!-- Services Accordion Container -->
@@ -198,13 +220,13 @@
     </section>
 
     <!-- Expansion & Network -->
-    <section id="expansion" class="w-full relative py-24 px-6 md:px-12 overflow-hidden">
+    <section id="expansion" class="section-stage section-stage-dark w-full relative py-24 px-6 md:px-12 overflow-hidden">
         <div class="absolute inset-0 z-0" data-parallax="18">
             <img src="images/truckloding.png" class="w-full h-full object-cover" alt="Truck loading yard background">
             <div class="absolute inset-0 bg-black/60"></div>
         </div>
         <div class="max-w-4xl mx-auto relative z-10 text-center text-white">
-            <div class="inline-block bg-white/10 px-3 py-1 rounded text-xs font-bold uppercase tracking-widest mb-4 border border-white/20" data-animate="fade-up">Going the Distance</div>
+            <div class="inline-block bg-red-50 border border-brand-red px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-red mb-4" data-animate="fade-up">Going the Distance</div>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mb-10" data-animate="fade-up" data-delay="0.1">Expansion & Network</h2>
 
             <div class="space-y-6 max-w-3xl mx-auto">
@@ -216,26 +238,29 @@
     </section>
 
     <!-- Vendor & Driver Benefits Section -->
-    <section id="vendors" class="w-full bg-white relative py-16 px-6 md:px-12 overflow-hidden">
-        <div class="max-w-7xl mx-auto">
+    <section id="vendors" class="section-stage section-stage-dark vendor-three-shell vendor-premium-dark w-full bg-slate-950 relative py-16 px-6 md:px-12 overflow-hidden">
+        <div id="vendor-three-bg" class="vendor-three-bg absolute inset-0 z-0 pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/84 via-slate-950/70 to-black/86" aria-hidden="true"></div>
+        <div class="section-orb orb-pink" data-float="8" aria-hidden="true"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
             <!-- Section Header -->
-            <div class="text-center mb-6" data-animate="fade-up">
+            <div class="text-center mb-6" data-animate="float-in">
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-brand-black mb-2">
                     Vendor & Driver Benefits
                 </h2>
-                <p class="text-base md:text-lg font-semibold text-gray-700">
+                <p class="vendor-subheadline-glass text-base md:text-lg font-semibold text-gray-700 mx-auto max-w-3xl">
                     Reliable Income and Operational Support for Truck Owners and Drivers
                 </p>
             </div>
 
             <!-- Highlight Glass Box -->
-            <div class="max-w-2xl mx-auto mb-16" data-animate="fade-up" data-delay="0.1">
+            <div class="max-w-2xl mx-auto mb-16" data-animate="blur-up" data-delay="0.1">
                 <div class="glass-box p-4 md:p-6">
                     <p class="text-sm md:text-base font-bold text-gray-900 mb-2">
-                        Trip-based payment system with stable work opportunities for truck owners and drivers.
+                        Trip-based allocation system with stable work opportunities for truck owners and drivers.
                     </p>
                     <p class="text-xs md:text-sm text-gray-800 leading-relaxed">
-                        AMOHA Logistics provides organized trip planning and regular transportation work to maintain predictable monthly income.
+                        AMOHA Logistics provides organized trip planning and regular transportation work for dependable operations.
                     </p>
                 </div>
             </div>
@@ -254,11 +279,11 @@
 
                     <!-- Right: Text -->
                     <div data-animate="fade-right">
-                        <h3 class="text-xl md:text-2xl font-bold text-brand-black mb-3 tracking-tight">
+                        <h3 class="vendor-subheadline-glass text-xl md:text-2xl font-bold text-brand-black mb-3 tracking-tight">
                             12-Wheel Trucks (25 MT Capacity)
                         </h3>
                         <p class="text-sm md:text-base leading-relaxed font-medium text-gray-700">
-                            These trucks can generate earnings of approximately <span class="text-brand-red font-bold">₹70,000 per month</span> depending on trip frequency and transportation schedules. AMOHA Logistics ensures regular trip allocation to maintain consistent work opportunities for truck owners.
+                            These trucks are suitable for regular transportation schedules and high-frequency trip operations. AMOHA Logistics ensures regular trip allocation to maintain consistent work opportunities for truck owners.
                         </p>
                     </div>
                 </div>
@@ -269,11 +294,11 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                     <!-- Left: Text -->
                     <div class="order-2 lg:order-1" data-animate="fade-left">
-                        <h3 class="text-xl md:text-2xl font-bold text-brand-black mb-3 tracking-tight">
+                        <h3 class="vendor-subheadline-glass text-xl md:text-2xl font-bold text-brand-black mb-3 tracking-tight">
                             14-Wheel Trucks (30 MT Capacity)
                         </h3>
                         <p class="text-sm md:text-base leading-relaxed font-medium text-gray-700">
-                            14-wheel trucks used for heavy material transportation can earn approximately <span class="text-brand-red font-bold">₹95,000 per month</span> through continuous trip assignments and organized logistics coordination provided by AMOHA Logistics.
+                            14-wheel trucks are used for heavy material transportation through continuous trip assignments and organized logistics coordination provided by AMOHA Logistics.
                         </p>
                     </div>
 
@@ -302,14 +327,14 @@
 
                     <!-- Right: Bullet Points -->
                     <div data-animate="fade-right">
-                        <h3 class="text-xl md:text-2xl font-bold text-brand-black mb-4 tracking-tight">
+                        <h3 class="vendor-subheadline-glass text-xl md:text-2xl font-bold text-brand-black mb-4 tracking-tight">
                             Operational Support for Drivers
                         </h3>
 
                         <div class="space-y-3 mb-6">
                             <div class="benefit-bullet" data-animate="fade-up" data-delay="0.2">
                                 <span class="bullet">•</span>
-                                <p class="text-gray-700 font-medium">Company covers driver salary</p>
+                                <p class="text-gray-700 font-medium">Dedicated driver and operations support from the company</p>
                             </div>
 
                             <div class="benefit-bullet" data-animate="fade-up" data-delay="0.3">
@@ -324,7 +349,7 @@
 
                             <div class="benefit-bullet" data-animate="fade-up" data-delay="0.5">
                                 <span class="bullet">•</span>
-                                <p class="text-gray-700 font-medium">Vehicle owners only pay toll charges (approx. ₹13,000)</p>
+                                <p class="text-gray-700 font-medium">Operational route coordination support for vehicle owners</p>
                             </div>
 
                             <div class="benefit-bullet" data-animate="fade-up" data-delay="0.6">
@@ -340,7 +365,7 @@
 
                         <div class="flex items-center gap-2">
                             <p class="text-sm font-bold uppercase tracking-widest text-gray-600">Contact:</p>
-                            <a href="tel:+919296911346" class="text-2xl md:text-3xl font-black text-brand-red hover:text-brand-black transition-colors">
+                            <a href="tel:+919296911346" class="vendor-hotline text-2xl md:text-3xl font-black text-brand-red hover:text-white transition-colors">
                                 9296911346
                             </a>
                         </div>
@@ -351,14 +376,15 @@
     </section>
 
     <!-- Why Choose AMOHA Logistics -->
-    <section id="whyus" class="w-full bg-gray-50 border-t border-gray-100 relative py-24 px-6 md:px-12 overflow-hidden">
+    <section id="whyus" class="section-stage section-stage-cool w-full bg-gray-50 border-t border-gray-100 relative py-24 px-6 md:px-12 overflow-hidden">
+        <div class="section-orb orb-cyan" data-float="6" aria-hidden="true"></div>
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <div class="relative w-full h-[220px] md:h-[380px] lg:h-[560px]" data-animate="fade-left">
-                <img src="images/truct.jpeg" class="section-image absolute inset-0 w-full h-full object-cover rounded-3xl shadow-xl" alt="AMOHA transport operations">
+                <img src="images/hero3.jpeg" class="section-image absolute inset-0 w-full h-full object-cover rounded-3xl shadow-xl" alt="AMOHA transport operations">
             </div>
 
             <div data-animate="fade-right">
-                <div class="inline-block bg-white border border-gray-200 px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-black mb-4 shadow-sm">Excellence Guaranteed</div>
+                <div class="inline-block bg-red-50 border border-brand-red px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-red mb-4">Excellence Guaranteed</div>
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-brand-black mb-8 leading-tight">Why Choose AMOHA Logistics</h2>
 
                 <div class="space-y-4">
@@ -372,7 +398,7 @@
                     </div>
                     <div class="why-point" data-animate="fade-up" data-delay="0.45">
                         <i data-lucide="check-circle" class="w-5 h-5 text-brand-red shrink-0 mt-1"></i>
-                        <p>Ensures timely payments for truck owners and drivers.</p>
+                        <p>Ensures timely trip planning and smooth coordination for truck owners and drivers.</p>
                     </div>
                     <div class="why-point" data-animate="fade-up" data-delay="0.6">
                         <i data-lucide="check-circle" class="w-5 h-5 text-brand-red shrink-0 mt-1"></i>
@@ -388,12 +414,12 @@
     </section>
 
     <!-- Contact & Partnership -->
-    <section id="contact" class="w-full bg-white py-24 px-6 md:px-12 border-t border-gray-100">
+    <section id="contact" class="section-stage section-stage-light w-full bg-white py-24 px-6 md:px-12 border-t border-gray-100">
         <div class="max-w-3xl mx-auto text-center">
-            <div class="inline-block bg-gray-100 border border-gray-200 px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-black mb-4" data-animate="fade-up">Connect With AMOHA</div>
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-brand-black mb-6" data-animate="fade-up" data-delay="0.1">Contact & Partnership</h2>
+            <div class="inline-block bg-red-50 border border-brand-red px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-red mb-4" data-animate="wipe-in">Connect With AMOHA</div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-brand-black mb-6" data-animate="blur-up" data-delay="0.1">Contact & Partnership</h2>
             <p class="text-gray-700 font-medium leading-relaxed mb-3" data-animate="fade-up" data-delay="0.2">Join our growing logistics network and build reliable partnerships with us.</p>
-            <p class="text-gray-700 font-medium leading-relaxed mb-8" data-animate="fade-up" data-delay="0.3">We provide transparent operations, flexible payment terms and strong support for our drivers and vendors.</p>
+            <p class="text-gray-700 font-medium leading-relaxed mb-8" data-animate="fade-up" data-delay="0.3">We provide transparent operations, flexible coordination, and strong support for our drivers and vendors.</p>
 
             <div class="text-sm md:text-base text-gray-700 font-bold mb-6" data-animate="fade-up" data-delay="0.4">
                 <p>Phone: +91 9296911346</p>
@@ -408,11 +434,11 @@
     </section>
 
     <!-- Customer Reviews -->
-    <section id="reviews" class="w-full bg-white py-20 px-6 md:px-12">
+    <section id="reviews" class="section-stage section-stage-soft w-full bg-white py-20 px-6 md:px-12">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <div class="inline-block bg-red-50 border border-brand-red px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-red mb-4" data-animate="fade-up">Customer Testimonials</div>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-brand-black mb-4" data-animate="fade-up" data-delay="0.1">What Our Customers Say</h2>
+                <div class="inline-block bg-red-50 border border-brand-red px-3 py-1 rounded text-xs font-bold uppercase tracking-widest text-brand-red mb-4" data-animate="wipe-in">Customer Testimonials</div>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-brand-black mb-4" data-animate="blur-up" data-delay="0.1">What Our Customers Say</h2>
                 <p class="text-gray-600 font-medium max-w-2xl mx-auto" data-animate="fade-up" data-delay="0.2">Trusted by hundreds of businesses across India for reliable, efficient logistics solutions</p>
             </div>
 
@@ -642,5 +668,22 @@
             </div>
         </div>
     </section>
+
+    <!-- Floating Social Sidebar -->
+    <div id="floating-social-sidebar" class="floating-social-sidebar" aria-label="Quick contact links">
+        <a href="https://www.instagram.com/amohalogistics?igsh=a29sbGFjM2hlYzBr" target="_blank" rel="noopener noreferrer" class="floating-social-link is-instagram" aria-label="Open Instagram">
+            <i data-lucide="instagram" class="w-4 h-4"></i>
+        </a>
+        <a href="tel:+919296911346" class="floating-social-link is-call" aria-label="Call AMOHA Logistics">
+            <svg class="floating-social-svg" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+            </svg>
+        </a>
+        <a href="https://wa.me/919296911346" target="_blank" rel="noopener noreferrer" class="floating-social-link is-whatsapp" aria-label="Chat on WhatsApp">
+            <svg class="floating-social-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+        </a>
+    </div>
 
 <?php include 'footer.php'; ?>

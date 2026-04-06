@@ -133,12 +133,7 @@
                 </a>
             </div>
 
-            <!-- CTA Button -->
-            <div class="text-center" data-animate="fade-up">
-                <a href="contact.php" class="inline-block px-8 py-3 bg-brand-red text-white font-bold rounded-lg hover:bg-brand-black transition-colors">
-                    Apply to Join Our Network
-                </a>
-            </div>
+            
         </div>
     </section>
 </main>

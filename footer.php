@@ -7,11 +7,11 @@
             <div class="main-footer-card backdrop-blur-lg bg-gradient-to-br from-pink-50 to-red-50 border border-brand-red/20 rounded-3xl p-8 md:p-12 shadow-lg hover:shadow-xl hover:border-brand-red/30 transition-all duration-300" data-animate="fade-up">
 
                 <!-- Footer Grid - Inside Single Card -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                     
                     <!-- Brand Section -->
-                    <div class="relative group">
-                        <div class="flex items-center gap-3 mb-4">
+                    <div class="relative group flex flex-col items-center">
+                        <div class="flex items-center justify-center gap-3 mb-4">
                             <img src="images/logo.png" alt="AMOHA" class="h-10 w-auto">
                             <div>
                                 <h4 class="text-base font-bold text-gray-800">AMOHA</h4>
@@ -19,7 +19,7 @@
                             </div>
                         </div>
                         <p class="text-sm text-gray-700 mb-4 leading-relaxed">Your trusted supply chain partner for reliable and efficient transportation.</p>
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 justify-center">
                             <a href="#" class="w-8 h-8 rounded-full bg-brand-red/10 hover:bg-brand-red/30 flex items-center justify-center text-brand-red transition-all hover:scale-110" title="Facebook">
                                 <i data-lucide="facebook" class="w-4 h-4"></i>
                             </a>
@@ -33,9 +33,9 @@
                     </div>
 
                     <!-- Quick Links Section -->
-                    <div class="relative group">
+                    <div class="relative group flex flex-col items-center">
                         <h4 class="text-base font-bold text-gray-800 mb-4 pb-2 border-b border-brand-red/20">Quick Links</h4>
-                        <ul class="space-y-2">
+                        <ul class="space-y-2 flex flex-col items-center">
                             <li><a href="index.php" class="text-sm text-gray-700 hover:text-brand-red transition-colors flex items-center gap-2 group/link">
                                 <span class="w-0 h-0.5 bg-brand-red group-hover/link:w-2 transition-all"></span> Home
                             </a></li>
@@ -52,9 +52,9 @@
                     </div>
 
                     <!-- Services Section -->
-                    <div class="relative group">
+                    <div class="relative group flex flex-col items-center">
                         <h4 class="text-base font-bold text-gray-800 mb-4 pb-2 border-b border-brand-red/20">Services</h4>
-                        <ul class="space-y-2">
+                        <ul class="space-y-2 flex flex-col items-center">
                             <li><a href="transportation-services.php" class="text-sm text-gray-700 hover:text-brand-red transition-colors flex items-center gap-2 group/link">
                                 <span class="w-0 h-0.5 bg-brand-red group-hover/link:w-2 transition-all"></span> Transportation
                             </a></li>
@@ -71,18 +71,18 @@
                     </div>
 
                     <!-- Contact Section -->
-                    <div class="relative group">
+                    <div class="relative group flex flex-col items-center">
                         <h4 class="text-base font-bold text-gray-800 mb-4 pb-2 border-b border-brand-red/20">Get in Touch</h4>
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-2">
+                        <ul class="space-y-3 flex flex-col items-center">
+                            <li class="flex items-center justify-center gap-2">
                                 <i data-lucide="phone" class="w-4 h-4 text-brand-red mt-0.5 flex-shrink-0"></i>
                                 <a href="tel:+919296911346" class="text-sm text-gray-700 hover:text-brand-red transition-colors">+91 9296911346</a>
                             </li>
-                            <li class="flex items-start gap-2">
+                            <li class="flex items-center justify-center gap-2">
                                 <i data-lucide="mail" class="w-4 h-4 text-brand-red mt-0.5 flex-shrink-0"></i>
                                 <a href="mailto:info@amohalogistics.com" class="text-sm text-gray-700 hover:text-brand-red transition-colors">info@amohalogistics.com</a>
                             </li>
-                            <li class="flex items-start gap-2">
+                            <li class="flex items-center justify-center gap-2">
                                 <i data-lucide="map-pin" class="w-4 h-4 text-brand-red mt-0.5 flex-shrink-0"></i>
                                 <span class="text-sm text-gray-700">Dhanbad, Jharkhand</span>
                             </li>
@@ -91,11 +91,9 @@
                 </div>
             </div>
 
-            </div>
-
             <!-- Bottom Bar - Outside Card -->
             <div class="border-t border-gray-200 pt-6 mt-8">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+                <div class="flex flex-col items-center justify-center gap-4 text-center">
                     <p class="text-xs text-gray-600 uppercase tracking-widest font-semibold">&copy; 2026 AMOHA Logistics. All Rights Reserved.</p>
                     <a href="https://bnintelhub.com/" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-600 hover:text-brand-red transition-colors uppercase tracking-widest font-semibold flex items-center gap-1 group">
                         Developed by <span class="text-gray-800 group-hover:text-brand-red">BNIntelHub</span>
@@ -132,22 +130,6 @@
             opacity: 1;
         }
 
-        /* Animations */
-        @keyframes fadeUpFooter {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        [data-animate="fade-up"] {
-            animation: fadeUpFooter 0.6s ease forwards;
-        }
-
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .main-footer-card {
@@ -166,33 +148,10 @@
         }
     </style>
 
-    <!-- Footer JS: intersection-observer reveal -->
-    <script>
-    (function() {
-        var cols = document.querySelectorAll('[data-animate="fade-up"]');
-        if (!cols.length) return;
-
-        function revealCols(entries, observer) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeUpFooter 0.6s ease forwards';
-                    var delay = entry.target.getAttribute('data-delay');
-                    if (delay) {
-                        entry.target.style.animationDelay = delay;
-                    }
-                    observer.unobserve(entry.target);
-                }
-            });
-        }
-
-        var obs = new IntersectionObserver(revealCols, { threshold: 0.15 });
-        cols.forEach(function(col) { obs.observe(col); });
-    })();
-    </script>
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r159/three.min.js"></script>
     <script src="js/script.js?v=<?php echo time(); ?>"></script>
     <script>
         // Ensure lucide icons render even if createIcons was called before script loaded

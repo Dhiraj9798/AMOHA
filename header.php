@@ -54,9 +54,9 @@
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 md:px-12 py-2 flex items-center justify-between">
-            <a href="index.php" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                <img src="images/logo.png" alt="AMOHA Logistics Logo" class="h-8 md:h-9 w-auto object-contain bg-white rounded">
-                <span class="text-sm md:text-lg font-bold tracking-tighter uppercase text-brand-black">AMOHA Logistics</span>
+            <a href="index.php" class="flex items-center gap-2.5 md:gap-3 hover:opacity-80 transition-opacity">
+                <img src="images/logo.png" alt="AMOHA Logistics Logo" class="h-11 md:h-11 lg:h-12 w-auto object-contain bg-white rounded">
+                <span class="text-lg md:text-xl lg:text-2xl leading-none font-bold tracking-tighter uppercase text-brand-black whitespace-nowrap">AMOHA Logistics</span>
             </a>
 
             <!-- Desktop Navigation -->
@@ -121,7 +121,7 @@
         </div>
 
         <!-- Mobile Navigation Sidebar -->
-        <div id="mobile-menu" class="fixed top-[58px] left-0 w-full h-[calc(100vh-58px)] bg-white transform -translate-x-full transition-transform duration-300 md:hidden overflow-y-auto shadow-lg z-40">
+        <div id="mobile-menu" class="fixed top-[60px] left-0 w-full h-[calc(100vh-60px)] bg-white transform -translate-x-full transition-transform duration-300 md:hidden overflow-y-auto shadow-lg z-40">
             <nav class="flex flex-col p-4 space-y-2">
                 <!-- Mobile Home Link -->
                 <a href="index.php" class="px-4 py-3 text-sm font-bold uppercase tracking-wide text-brand-black hover:bg-red-50 hover:text-brand-red transition-colors rounded-lg">Home</a>
