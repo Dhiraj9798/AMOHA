@@ -238,10 +238,9 @@
     </section>
 
     <!-- Vendor & Driver Benefits Section -->
-    <section id="vendors" class="section-stage section-stage-dark vendor-three-shell vendor-premium-dark w-full bg-slate-950 relative py-16 px-6 md:px-12 overflow-hidden">
-        <div id="vendor-three-bg" class="vendor-three-bg absolute inset-0 z-0 pointer-events-none" aria-hidden="true"></div>
-        <div class="absolute inset-0 z-0 bg-gradient-to-b from-slate-950/84 via-slate-950/70 to-black/86" aria-hidden="true"></div>
-        <div class="section-orb orb-pink" data-float="8" aria-hidden="true"></div>
+    <section id="vendors" class="section-stage section-stage-light vendor-canvas-shell vendor-premium-light w-full bg-white relative py-16 px-6 md:px-12 overflow-hidden">
+        <canvas id="vendor-canvas-bg" class="vendor-canvas-bg absolute inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+        <div class="absolute inset-0 z-0 bg-gradient-to-b from-white/74 via-white/52 to-white/86" aria-hidden="true"></div>
         <div class="max-w-7xl mx-auto relative z-10">
             <!-- Section Header -->
             <div class="text-center mb-6" data-animate="float-in">
@@ -365,7 +364,7 @@
 
                         <div class="flex items-center gap-2">
                             <p class="text-sm font-bold uppercase tracking-widest text-gray-600">Contact:</p>
-                            <a href="tel:+919296911346" class="vendor-hotline text-2xl md:text-3xl font-black text-brand-red hover:text-white transition-colors">
+                            <a href="tel:+919296911346" class="vendor-hotline text-2xl md:text-3xl font-black text-brand-red hover:text-brand-black transition-colors">
                                 9296911346
                             </a>
                         </div>

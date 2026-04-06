@@ -389,28 +389,67 @@ document.addEventListener("DOMContentLoaded", function() {
         const points = new THREE.Points(pointsGeometry, pointsMaterial);
         group.add(points);
 
+        const animationPreset = config.animationPreset || "default";
+
+        const wireGeometry = animationPreset === "orbital"
+            ? new THREE.TorusKnotGeometry(
+                config.wireSize || 15,
+                config.wireTube || 1.8,
+                config.wireTubularSegments || 148,
+                config.wireRadialSegments || 18
+            )
+            : new THREE.IcosahedronGeometry(config.wireSize || 20, 1);
+
         const wireMesh = new THREE.Mesh(
-            new THREE.IcosahedronGeometry(config.wireSize || 20, 1),
+            wireGeometry,
             new THREE.MeshBasicMaterial({
                 color: config.wireColor,
-                wireframe: true,
+                wireframe: animationPreset !== "orbital",
                 transparent: true,
                 opacity: config.wireOpacity || 0.2
             })
         );
-        wireMesh.position.set(config.wireX || 18, config.wireY || -4, config.wireZ || -8);
+
+        const baseWireX = config.wireX ?? 18;
+        const baseWireY = config.wireY ?? -4;
+        const baseWireZ = config.wireZ ?? -8;
+        const baseSphereX = config.sphereX ?? -20;
+        const baseSphereY = config.sphereY ?? 8;
+        const baseSphereZ = config.sphereZ ?? -16;
+
+        wireMesh.position.set(baseWireX, baseWireY, baseWireZ);
         group.add(wireMesh);
 
+        const sphereGeometry = animationPreset === "orbital"
+            ? new THREE.OctahedronGeometry(config.sphereSize || 10, 1)
+            : new THREE.SphereGeometry(config.sphereSize || 12, 22, 22);
+
         const sphereMesh = new THREE.Mesh(
-            new THREE.SphereGeometry(config.sphereSize || 12, 22, 22),
+            sphereGeometry,
             new THREE.MeshBasicMaterial({
                 color: config.sphereColor,
                 transparent: true,
                 opacity: config.sphereOpacity || 0.16
             })
         );
-        sphereMesh.position.set(config.sphereX || -20, config.sphereY || 8, config.sphereZ || -16);
+        sphereMesh.position.set(baseSphereX, baseSphereY, baseSphereZ);
         group.add(sphereMesh);
+
+        let haloMesh = null;
+        if (animationPreset === "orbital") {
+            haloMesh = new THREE.Mesh(
+                new THREE.TorusGeometry(config.haloRadius || 30, config.haloTube || 0.65, 18, config.haloSegments || 160),
+                new THREE.MeshBasicMaterial({
+                    color: config.haloColor || 0x7dd3fc,
+                    transparent: true,
+                    opacity: config.haloOpacity || 0.16,
+                    wireframe: true
+                })
+            );
+            haloMesh.position.set(config.haloX ?? -1, config.haloY ?? 0, config.haloZ ?? -12);
+            haloMesh.rotation.x = Math.PI * 0.24;
+            group.add(haloMesh);
+        }
 
         const resize = () => {
             const width = Math.max(container.clientWidth, 1);
@@ -430,12 +469,39 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             const time = performance.now() * 0.001;
-            points.rotation.y += 0.0008 * speed;
-            points.rotation.x += 0.0003 * speed;
-            wireMesh.rotation.y += 0.0019 * speed;
-            wireMesh.rotation.x += 0.0014 * speed;
-            sphereMesh.position.y = (config.sphereY || 8) + Math.sin(time * (0.9 + speed * 0.2)) * (2 + speed);
-            pointsMaterial.opacity = basePointOpacity + Math.sin(time * 0.8) * 0.04;
+
+            if (animationPreset === "orbital") {
+                points.rotation.y += 0.0016 * speed;
+                points.rotation.z += 0.0008 * speed;
+
+                wireMesh.rotation.y += 0.0028 * speed;
+                wireMesh.rotation.x += 0.0014 * speed;
+                wireMesh.rotation.z += 0.0012 * speed;
+                wireMesh.position.x = baseWireX + Math.sin(time * (0.95 + speed * 0.14)) * (2.8 + speed);
+                wireMesh.position.y = baseWireY + Math.cos(time * (0.82 + speed * 0.1)) * (2.2 + speed * 0.6);
+
+                sphereMesh.rotation.y += 0.0022 * speed;
+                sphereMesh.rotation.z += 0.0015 * speed;
+                sphereMesh.position.x = baseSphereX + Math.cos(time * (0.78 + speed * 0.12)) * (4.4 + speed);
+                sphereMesh.position.y = baseSphereY + Math.sin(time * (1.15 + speed * 0.12)) * (2.4 + speed * 0.5);
+                sphereMesh.position.z = baseSphereZ + Math.sin(time * 0.62) * (2 + speed * 0.35);
+
+                if (haloMesh) {
+                    haloMesh.rotation.y += 0.0017 * speed;
+                    haloMesh.rotation.z += 0.0009 * speed;
+                    const haloScale = 1 + Math.sin(time * (1.06 + speed * 0.08)) * 0.08;
+                    haloMesh.scale.setScalar(haloScale);
+                }
+
+                pointsMaterial.opacity = basePointOpacity + Math.sin(time * 1.35) * 0.06;
+            } else {
+                points.rotation.y += 0.0008 * speed;
+                points.rotation.x += 0.0003 * speed;
+                wireMesh.rotation.y += 0.0019 * speed;
+                wireMesh.rotation.x += 0.0014 * speed;
+                sphereMesh.position.y = baseSphereY + Math.sin(time * (0.9 + speed * 0.2)) * (2 + speed);
+                pointsMaterial.opacity = basePointOpacity + Math.sin(time * 0.8) * 0.04;
+            }
 
             renderer.render(scene, camera);
             rafId = requestAnimationFrame(renderFrame);
@@ -495,31 +561,409 @@ document.addEventListener("DOMContentLoaded", function() {
         speed: 0.9
     });
 
-    initThreeBackground({
-        containerId: "vendor-three-bg",
-        fallback: "radial-gradient(circle at 18% 22%, rgba(249, 115, 22, 0.16) 0%, rgba(249, 115, 22, 0) 52%), radial-gradient(circle at 82% 72%, rgba(6, 182, 212, 0.16) 0%, rgba(6, 182, 212, 0) 54%), linear-gradient(145deg, rgba(2, 6, 23, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%)",
-        cameraZ: 96,
-        particleCount: 220,
-        spreadX: 130,
-        spreadY: 84,
-        spreadZ: 44,
-        pointColor: 0xfb7185,
-        pointSize: 1.95,
-        pointOpacity: 0.32,
-        wireColor: 0xf43f5e,
-        wireOpacity: 0.22,
-        wireSize: 22,
-        wireX: 21,
-        wireY: -4,
-        wireZ: -10,
-        sphereColor: 0x22d3ee,
-        sphereOpacity: 0.17,
-        sphereSize: 12,
-        sphereX: -22,
-        sphereY: 9,
-        sphereZ: -17,
-        speed: 1.15
-    });
+    const initVendorCanvasAnimation = () => {
+        const canvas = document.getElementById("vendor-canvas-bg");
+        if (!canvas) {
+            return;
+        }
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+            return;
+        }
+
+        let width = 1;
+        let height = 1;
+        let dpr = 1;
+        let mouseX = -999;
+        let mouseY = -999;
+        let tick = 0;
+
+        const COLORS = [
+            { r: 26, g: 158, b: 111 },
+            { r: 15, g: 122, b: 85 },
+            { r: 52, g: 211, b: 153 },
+            { r: 6, g: 95, b: 70 },
+            { r: 16, g: 185, b: 129 },
+            { r: 110, g: 231, b: 183 },
+            { r: 5, g: 150, b: 105 },
+            { r: 167, g: 243, b: 208 }
+        ];
+
+        const TOTAL = 90;
+        const particles = [];
+        let waves = [];
+
+        const createWaves = () => Array.from({ length: 5 }, (_, i) => ({
+            y: height * (0.15 + i * 0.18),
+            amp: 18 + i * 8,
+            freq: 0.006 + i * 0.002,
+            speed: 0.008 + i * 0.003,
+            phase: (i / 5) * Math.PI * 2,
+            alpha: 0.04 + i * 0.012,
+            thick: 0.8 + i * 0.3
+        }));
+
+        const createParticle = (forceX) => {
+            let x;
+            if (forceX === "L") {
+                x = Math.random() * width * 0.38;
+            } else if (forceX === "R") {
+                x = width * 0.62 + Math.random() * width * 0.38;
+            } else {
+                x = Math.random() * width;
+            }
+
+            const col = COLORS[Math.floor(Math.random() * COLORS.length)];
+            return {
+                x,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.55,
+                vy: (Math.random() - 0.5) * 0.45,
+                r: 2 + Math.random() * 4.5,
+                col,
+                alpha: 0.3 + Math.random() * 0.5,
+                shape: Math.random() < 0.3 ? "diamond" : "circle",
+                pulse: Math.random() * Math.PI * 2,
+                pulseSpeed: 0.015 + Math.random() * 0.015
+            };
+        };
+
+        const seedParticles = () => {
+            particles.length = 0;
+            for (let i = 0; i < TOTAL; i++) {
+                const zone = i < TOTAL * 0.35
+                    ? "L"
+                    : i < TOTAL * 0.7
+                        ? "R"
+                        : null;
+                particles.push(createParticle(zone));
+            }
+        };
+
+        const getAlpha = (x, baseAlpha) => {
+            const xf = x / Math.max(width, 1);
+            if (xf >= 0.26 && xf <= 0.74) {
+                const d = Math.min(xf - 0.26, 0.74 - xf) / 0.13;
+                const fade = 1 - Math.min(d, 1);
+                return baseAlpha * fade * fade * fade;
+            }
+
+            return baseAlpha;
+        };
+
+        const drawCircle = (particle, alpha) => {
+            ctx.beginPath();
+            ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${particle.col.r},${particle.col.g},${particle.col.b},${alpha})`;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(
+                particle.x - particle.r * 0.28,
+                particle.y - particle.r * 0.28,
+                particle.r * 0.35,
+                0,
+                Math.PI * 2
+            );
+            ctx.fillStyle = `rgba(255,255,255,${alpha * 0.55})`;
+            ctx.fill();
+        };
+
+        const drawDiamond = (particle, alpha) => {
+            const size = particle.r * 1.5;
+            ctx.save();
+            ctx.translate(particle.x, particle.y);
+            ctx.rotate(Math.PI / 4);
+            ctx.beginPath();
+            ctx.rect(-size * 0.7, -size * 0.7, size * 1.4, size * 1.4);
+            ctx.fillStyle = `rgba(${particle.col.r},${particle.col.g},${particle.col.b},${alpha})`;
+            ctx.fill();
+            ctx.strokeStyle = `rgba(255,255,255,${alpha * 0.4})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+            ctx.restore();
+        };
+
+        const drawFrame = () => {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = "rgba(255,255,255,0.98)";
+            ctx.fillRect(0, 0, width, height);
+
+            const bgL = ctx.createLinearGradient(0, 0, width * 0.32, 0);
+            bgL.addColorStop(0, "rgba(26,158,111, 0.06)");
+            bgL.addColorStop(1, "rgba(26,158,111, 0)");
+            ctx.fillStyle = bgL;
+            ctx.fillRect(0, 0, width * 0.32, height);
+
+            const bgR = ctx.createLinearGradient(width, 0, width * 0.68, 0);
+            bgR.addColorStop(0, "rgba(26,158,111, 0.06)");
+            bgR.addColorStop(1, "rgba(26,158,111, 0)");
+            ctx.fillStyle = bgR;
+            ctx.fillRect(width * 0.68, 0, width * 0.32, height);
+
+            waves.forEach((wave) => {
+                ctx.beginPath();
+                for (let x = 0; x <= width; x += 3) {
+                    const y = wave.y + Math.sin(x * wave.freq + tick * wave.speed + wave.phase) * wave.amp;
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+
+                const waveGradient = ctx.createLinearGradient(0, 0, width, 0);
+                waveGradient.addColorStop(0, `rgba(26,158,111, ${wave.alpha})`);
+                waveGradient.addColorStop(0.28, `rgba(26,158,111, ${wave.alpha * 0.3})`);
+                waveGradient.addColorStop(0.5, `rgba(26,158,111, ${wave.alpha * 0.05})`);
+                waveGradient.addColorStop(0.72, `rgba(26,158,111, ${wave.alpha * 0.3})`);
+                waveGradient.addColorStop(1, `rgba(26,158,111, ${wave.alpha})`);
+                ctx.strokeStyle = waveGradient;
+                ctx.lineWidth = wave.thick;
+                ctx.stroke();
+            });
+
+            const LINK_DIST = 100;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const pi = particles[i];
+                    const pj = particles[j];
+                    const dx = pi.x - pj.x;
+                    const dy = pi.y - pj.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < LINK_DIST) {
+                        const aiBase = getAlpha(pi.x, 1);
+                        const ajBase = getAlpha(pj.x, 1);
+                        if (aiBase < 0.05 || ajBase < 0.05) {
+                            continue;
+                        }
+
+                        const lineA = (1 - dist / LINK_DIST) * 0.18 * Math.min(aiBase, ajBase);
+                        ctx.beginPath();
+                        ctx.moveTo(pi.x, pi.y);
+                        ctx.lineTo(pj.x, pj.y);
+                        ctx.strokeStyle = `rgba(26,158,111, ${lineA})`;
+                        ctx.lineWidth = 0.7;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            particles.forEach((particle) => {
+                if (mouseX > 0) {
+                    const dx = mouseX - particle.x;
+                    const dy = mouseY - particle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 160 && distance > 1) {
+                        particle.vx += (dx / distance) * 0.012;
+                        particle.vy += (dy / distance) * 0.012;
+                    }
+                }
+
+                particle.vx *= 0.995;
+                particle.vy *= 0.995;
+
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                particle.pulse += particle.pulseSpeed;
+
+                if (particle.x < -20) particle.x = width + 20;
+                if (particle.x > width + 20) particle.x = -20;
+                if (particle.y < -20) particle.y = height + 20;
+                if (particle.y > height + 20) particle.y = -20;
+
+                const pulseA = particle.alpha * (0.7 + Math.sin(particle.pulse) * 0.3);
+                const finalA = getAlpha(particle.x, pulseA);
+                if (finalA < 0.01) {
+                    return;
+                }
+
+                if (particle.shape === "diamond") {
+                    drawDiamond(particle, finalA);
+                } else {
+                    drawCircle(particle, finalA);
+                }
+            });
+
+            const cornerShapes = [
+                { x: width * 0.04, y: height * 0.18, r: 28, a: 0.12 + Math.sin(tick * 0.008) * 0.04 },
+                { x: width * 0.1, y: height * 0.65, r: 20, a: 0.1 + Math.sin(tick * 0.007 + 1) * 0.04 },
+                { x: width * 0.96, y: height * 0.22, r: 26, a: 0.12 + Math.sin(tick * 0.009 + 2) * 0.04 },
+                { x: width * 0.9, y: height * 0.7, r: 22, a: 0.1 + Math.sin(tick * 0.006 + 3) * 0.04 }
+            ];
+
+            cornerShapes.forEach((shape) => {
+                ctx.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    const ang = (i / 6) * Math.PI * 2 - Math.PI / 6 + tick * 0.004;
+                    const px = shape.x + Math.cos(ang) * shape.r;
+                    const py = shape.y + Math.sin(ang) * shape.r;
+                    if (i === 0) {
+                        ctx.moveTo(px, py);
+                    } else {
+                        ctx.lineTo(px, py);
+                    }
+                }
+
+                ctx.closePath();
+                ctx.strokeStyle = `rgba(26,158,111, ${shape.a})`;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                ctx.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    const ang = (i / 6) * Math.PI * 2 - Math.PI / 6 - tick * 0.004;
+                    const px = shape.x + Math.cos(ang) * shape.r * 0.55;
+                    const py = shape.y + Math.sin(ang) * shape.r * 0.55;
+                    if (i === 0) {
+                        ctx.moveTo(px, py);
+                    } else {
+                        ctx.lineTo(px, py);
+                    }
+                }
+
+                ctx.closePath();
+                ctx.strokeStyle = `rgba(26,158,111, ${shape.a * 0.6})`;
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+            });
+
+            const DOT_SPACING = 44;
+            for (let gx = 0; gx < width; gx += DOT_SPACING) {
+                for (let gy = 0; gy < height; gy += DOT_SPACING) {
+                    const drift = Math.sin(tick * 0.005 + gx * 0.04 + gy * 0.03) * 4;
+                    const dotA = getAlpha(gx, 0.1);
+                    if (dotA < 0.01) {
+                        continue;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(gx + drift, gy + drift * 0.6, 1, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(26,158,111, ${dotA})`;
+                    ctx.fill();
+                }
+            }
+
+            const centerGradient = ctx.createRadialGradient(width * 0.5, height * 0.44, 0, width * 0.5, height * 0.44, width * 0.27);
+            centerGradient.addColorStop(0, "rgba(255,255,255, 0.85)");
+            centerGradient.addColorStop(0.55, "rgba(255,255,255, 0.45)");
+            centerGradient.addColorStop(1, "rgba(255,255,255, 0)");
+            ctx.fillStyle = centerGradient;
+            ctx.fillRect(0, 0, width, height);
+
+            const bottomFade = ctx.createLinearGradient(0, height * 0.72, 0, height);
+            bottomFade.addColorStop(0, "rgba(255,255,255,0)");
+            bottomFade.addColorStop(1, "rgba(255,255,255,1)");
+            ctx.fillStyle = bottomFade;
+            ctx.fillRect(0, height * 0.72, width, height * 0.28);
+        };
+
+        const resize = () => {
+            const parent = canvas.parentElement;
+            const nextWidth = parent ? parent.clientWidth : canvas.clientWidth;
+            const nextHeight = parent ? parent.clientHeight : canvas.clientHeight;
+
+            width = Math.max(nextWidth, 1);
+            height = Math.max(nextHeight, 1);
+            dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
+            canvas.width = Math.max(Math.floor(width * dpr), 1);
+            canvas.height = Math.max(Math.floor(height * dpr), 1);
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            waves = createWaves();
+            if (!particles.length) {
+                seedParticles();
+            }
+
+            if (prefersReducedMotion) {
+                drawFrame();
+            }
+        };
+
+        const onMouseMove = (event) => {
+            const rect = canvas.getBoundingClientRect();
+            if (
+                event.clientX < rect.left ||
+                event.clientX > rect.right ||
+                event.clientY < rect.top ||
+                event.clientY > rect.bottom
+            ) {
+                mouseX = -999;
+                mouseY = -999;
+                return;
+            }
+
+            mouseX = event.clientX - rect.left;
+            mouseY = event.clientY - rect.top;
+        };
+
+        const clearMouse = () => {
+            mouseX = -999;
+            mouseY = -999;
+        };
+
+        let animationFrameId = 0;
+        let running = false;
+
+        const render = () => {
+            if (!running) {
+                return;
+            }
+
+            drawFrame();
+            tick += 1;
+            animationFrameId = requestAnimationFrame(render);
+        };
+
+        const start = () => {
+            if (running) {
+                return;
+            }
+
+            running = true;
+            render();
+        };
+
+        const stop = () => {
+            running = false;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = 0;
+            }
+        };
+
+        const onVisibilityChange = () => {
+            if (document.hidden) {
+                stop();
+                return;
+            }
+
+            if (!prefersReducedMotion) {
+                start();
+            }
+        };
+
+        resize();
+        window.addEventListener("resize", resize);
+        window.addEventListener("load", resize);
+        window.addEventListener("mousemove", onMouseMove, { passive: true });
+        window.addEventListener("blur", clearMouse);
+        document.addEventListener("visibilitychange", onVisibilityChange);
+
+        if (prefersReducedMotion) {
+            drawFrame();
+            return;
+        }
+
+        start();
+    };
+
+    initVendorCanvasAnimation();
 
     // Service Accordion
     const headers = document.querySelectorAll(".service-accordion-header");
